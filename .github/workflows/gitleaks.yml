@@ -16,11 +16,7 @@ jobs:
 
       - name: Send results to Port
         run: |
-          echo "First, check we have the right sarif file"
-          ls -lah
-          cat results.sarif
-          echo "Now, send the results to Port"
-          echo "Reading SARIF results and sending to Port..."
+          echo "Sending gitleaks results and sending to Port..."
           curl -X POST ${{ secrets.PORT_WEBHOOK_URL }} \
             -H "Content-Type: application/json" \
             --data "@results.sarif"
