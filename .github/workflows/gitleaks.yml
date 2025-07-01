@@ -1,0 +1,26 @@
+name: Gitleaks Scan
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Run Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        with:
+          config-path: .github/gitleaks.toml
+          report-format: sarif
+          report-path: gitleaks-results.sarif
+
+      - name: Send results to Port
+        run: |
+          echo "Reading SARIF results and sending to Port..."
+          curl -X POST ${{ secrets.PORT_WEBHOOK_URL }} \
+            -H "Content-Type: application/json" \
+            --data-binary "@gitleaks-results.sarif"
