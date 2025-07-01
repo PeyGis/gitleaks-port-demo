@@ -18,6 +18,6 @@ jobs:
         if: always()
         run: |
           echo "Sending gitleaks results and sending to Port..."
-          curl -X POST ${{ secrets.PORT_WEBHOOK_URL }} \
+          curl -X POST ${{ secrets.PORT_WEBHOOK_URL }}?repo=$GITHUB_REPOSITORY \
             -H "Content-Type: application/json" \
             --data "@results.sarif"
