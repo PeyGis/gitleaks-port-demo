@@ -13,10 +13,6 @@ jobs:
 
       - name: Run Gitleaks
         uses: gitleaks/gitleaks-action@v2
-        with:
-          config-path: .github/gitleaks.toml
-          report-format: sarif
-          report-path: gitleaks-results.sarif
 
       - name: Send results to Port
         run: |
