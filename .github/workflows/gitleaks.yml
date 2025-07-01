@@ -15,6 +15,7 @@ jobs:
         uses: gitleaks/gitleaks-action@v2
 
       - name: Send results to Port
+        if: always()
         run: |
           echo "Sending gitleaks results and sending to Port..."
           curl -X POST ${{ secrets.PORT_WEBHOOK_URL }} \
